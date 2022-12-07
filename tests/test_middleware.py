@@ -4,20 +4,14 @@ from starlite_starception import StarceptionMiddleware
 from starlite_starception.exception_handler import install_error_handler
 
 
-@get("/")
+@get("/")  # type: ignore
 def view() -> None:
     raise TypeError('Oops')
 
 
-debug_app = Starlite(
-    debug=True,
-    route_handlers=[view],
-    middleware=[StarceptionMiddleware])
+debug_app = Starlite(debug=True, route_handlers=[view], middleware=[StarceptionMiddleware])
 
-release_app = Starlite(
-    debug=False,
-    route_handlers=[view],
-    middleware=[StarceptionMiddleware])
+release_app = Starlite(debug=False, route_handlers=[view], middleware=[StarceptionMiddleware])
 
 no_middleware_debug_app = Starlite(
     debug=True,

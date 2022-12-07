@@ -11,12 +11,10 @@ import traceback
 import typing
 from markupsafe import Markup
 from pprint import pformat
-
 from starlite import Request
 from starlite.datastructures import URL
 from starlite.middleware.exceptions import ExceptionHandlerMiddleware
 from starlite.response import Response
-
 from urllib.parse import quote_plus
 
 _editor: str = 'none'
@@ -24,6 +22,7 @@ open_link_templates: typing.Dict[str, str] = {
     'none': 'file://{path}',
     'vscode': 'vscode://file/{path}:{lineno}',
 }
+
 
 def set_editor(name: str) -> None:
     """

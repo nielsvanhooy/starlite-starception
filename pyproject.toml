@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "starlite-starception"
+name = "starlite_starception"
 description = "Beautiful debugging page for starlite apps."
 version = "1.0.1"
 authors = ["Alex Oleshkevich <alex.oleshkevich@gmail.com>"]

@@ -1,4 +1,9 @@
-from starlite_starception.exception_handler import add_link_template, exception_handler, install_error_handler, set_editor
+from starlite_starception.exception_handler import (
+    add_link_template,
+    exception_handler,
+    install_error_handler,
+    set_editor,
+)
 from starlite_starception.middleware import StarceptionMiddleware
 
 __all__ = [
