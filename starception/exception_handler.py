@@ -11,10 +11,12 @@ import traceback
 import typing
 from markupsafe import Markup
 from pprint import pformat
-from starlette.datastructures import URL
-from starlette.middleware.errors import ServerErrorMiddleware
-from starlette.requests import Request
-from starlette.responses import HTMLResponse, PlainTextResponse, Response
+
+from starlite import Request
+from starlite.datastructures import URL
+from starlite.middleware.exceptions import ExceptionHandlerMiddleware
+from starlite.response import Response
+
 from urllib.parse import quote_plus
 
 _editor: str = 'none'
@@ -22,7 +24,6 @@ open_link_templates: typing.Dict[str, str] = {
     'none': 'file://{path}',
     'vscode': 'vscode://file/{path}:{lineno}',
 }
-
 
 def set_editor(name: str) -> None:
     """
@@ -51,19 +52,22 @@ def to_ide_link(path: str, lineno: int) -> str:
     return template.format(path=path, lineno=lineno)
 
 
-def install_error_handler(editor: str = '') -> None:
+def install_error_handler(framework=None, editor: str = '') -> None:
     """
     Replace Starlette debug exception handler in-place.
 
     May be, someday, we won't need it.
     See https://github.com/encode/starlette/discussions/1867
     """
+    if not framework:
+        raise Exception("you have to enter a framework")
+
     set_editor(editor)
 
-    def bound_handler(self: ServerErrorMiddleware, request: Request, exc: Exception) -> Response:
+    def bound_handler(self: ExceptionHandlerMiddleware, request: Request, exc: Exception) -> Response:
         return exception_handler(request, exc)
 
-    setattr(ServerErrorMiddleware, 'debug_response', bound_handler)
+    setattr(ExceptionHandlerMiddleware, 'default_http_exception_handler', bound_handler)
 
 
 def get_relative_filename(path: str) -> str:
@@ -204,10 +208,10 @@ def exception_handler(request: Request, exc: Exception) -> Response:
 
     if "text/html" in accept:
         content = generate_html(request, exc)
-        return HTMLResponse(content, status_code=500)
+        return Response(content, status_code=500, media_type="text/html")
 
     content = generate_plain_text(exc)
-    return PlainTextResponse(content, status_code=500)
+    return Response(content, status_code=500, media_type="text/plain")
 
 
 def generate_plain_text(exc: Exception) -> str:

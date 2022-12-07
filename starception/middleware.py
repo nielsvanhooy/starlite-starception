@@ -1,6 +1,7 @@
-from starlette.requests import Request
-from starlette.responses import PlainTextResponse, Response
-from starlette.types import ASGIApp, Message, Receive, Scope, Send
+from starlite import Request
+from starlite.response import Response
+from starlite.types import ASGIApp, Message, Receive, Scope, Send
+from starception.exception_handler import PlainTextResponse
 
 from starception.exception_handler import exception_handler
 
@@ -57,4 +58,4 @@ class StarceptionMiddleware:
         return exception_handler(request, exc)
 
     def error_response(self, request: Request, exc: Exception) -> Response:
-        return PlainTextResponse("Internal Server Error", status_code=500)
+        return Response("Internal Server Error", status_code=500, media_type="text/plain")

@@ -16,30 +16,28 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.7",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-starlette = "^0"
+python = "^3.9"
+starlite = "*"
 MarkupSafe = "^2"
 Jinja2 = "^3"
 typing_extensions = "^4.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2"
-pytest-asyncio = "^0.18.0"
+pytest-asyncio = "^0.20.2"
 pytest-cov = "^4.0"
-black = "^22.6.0"
-mypy = "^v0.971"
-flake8 = "^4.0.1"
-uvicorn = "^0.18.2"
-fastapi = "^0.79.0"
+black = "^22.10.0"
+mypy = "^v0.991"
+flake8 = "^6.0.0"
+uvicorn = "^0.20.0"
 requests = "^2.28.1"
 pygments = { optional = true, version = "^2.13" }
 
@@ -51,7 +49,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-target-version = ["py38"]
+target-version = ["py39"]
 skip-string-normalization = true
 line_length = 120
 extend-exclude = true
