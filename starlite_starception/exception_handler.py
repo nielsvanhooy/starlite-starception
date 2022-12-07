@@ -52,16 +52,13 @@ def to_ide_link(path: str, lineno: int) -> str:
     return template.format(path=path, lineno=lineno)
 
 
-def install_error_handler(framework=None, editor: str = '') -> None:
+def install_error_handler(editor: str = '') -> None:
     """
     Replace Starlette debug exception handler in-place.
 
     May be, someday, we won't need it.
     See https://github.com/encode/starlette/discussions/1867
     """
-    if not framework:
-        raise Exception("you have to enter a framework")
-
     set_editor(editor)
 
     def bound_handler(self: ExceptionHandlerMiddleware, request: Request, exc: Exception) -> Response:

@@ -1,4 +1,24 @@
-# Starception
+##############
+
+# NOTE: this is a fork of https://github.com/alex-oleshkevich/starception
+
+All rights to him and the contributors for that repo.
+
+This fork exists to implement starception for starlite: https://github.com/starlite-api/starlite.
+
+Starlite left starlette since version [1.39.0] for there own implementations.
+Therefor the orginal repo doens't work anymore
+anymore
+
+Seeing starception was originally built for starlette backed frameworks.
+So a fork was needed to make this work with
+starlite
+
+Note2: i will keep the fork in sync with the main repo except for the starlette stuff.
+
+##############
+
+# Starception-starlite
 
 Beautiful exception page for Starlette and FastAPI apps.
 
@@ -11,12 +31,12 @@ Beautiful exception page for Starlette and FastAPI apps.
 
 ## Installation
 
-Install `starception` using PIP or poetry:
+Install `starlite-starception` using PIP or poetry:
 
 ```bash
-pip install starception
+pip install starlite-starlite_starception
 # or
-poetry add starception
+poetry add starlite-starlite_starception
 ```
 
 ### With syntax highlight support
@@ -24,9 +44,9 @@ poetry add starception
 If you want to colorize code snippets, install `pygments` library.
 
 ```bash
-pip install starception[pygments]
+pip install starlite-starlite_starception[pygments]
 # or
-poetry add starception -E pygments
+poetry add starlite-starlite_starception -E pygments
 ```
 
 ## Screenshot
@@ -71,11 +91,17 @@ To replace built-in debug exception handler call `install_error_handler` before 
 > Currently, this is a recommended approach.
 
 ```python
-from starception import install_error_handler
-from starlette.applications import Starlette
+from starlite_starception import install_error_handler
+from starlite import Starlite, get
+
+
+@get("/")
+def view() -> None:
+    raise TypeError('Oops')
+
 
 install_error_handler()
-app = Starlette()
+app = Starlite(route_handlers=[view])
 ```
 
 ### Using middleware
@@ -88,66 +114,22 @@ To render a beautiful exception page you need to install a `StarceptionMiddlewar
 ```python
 import typing
 
-from starlette.applications import Starlette
-from starlette.middleware import Middleware
-from starlette.requests import Request
-from starlette.routing import Route
+from starlite import Starlite
 
-from starception import StarceptionMiddleware
+from starlite_starception import StarceptionMiddleware
 
 
-async def index_view(request: Request) -> typing.NoReturn:
-    raise TypeError('Oops, something really went wrong...')
+async def index_view() -> None:
+    raise Exception('Oops, something really went wrong...')
 
 
-app = Starlette(
+app = Starlite(
     debug=True,
-    routes=[Route('/', index_view)],
+    route_handlers=[index_view],
     middleware=[
-        Middleware(StarceptionMiddleware),
+        StarceptionMiddleware,
         # other middleware go here
-    ],
-)
-```
-
-### Integration with FastAPI
-
-Attach `StarceptionMiddleware` middleware to your FastAPI application:
-
-```python
-import typing
-
-from fastapi import FastAPI, Request
-
-from starception import StarceptionMiddleware
-
-app = FastAPI(debug=True)
-app.add_middleware(StarceptionMiddleware)  # must be the first one!
-
-
-@app.route('/')
-async def index_view(request: Request) -> typing.NoReturn:
-    raise TypeError('Oops, something really went wrong...')
-```
-
-### Integration with other frameworks
-
-`starception` exports `starception.exception_handler(request, exc)` function, which you can use in your
-framework.
-But keep in mind, Starlette will [not call](https://github.com/encode/starlette/issues/1802) any custom exception
-handler
-in debug mode (it always uses built-in one).
-
-The snipped below will not work as you expect (unfortunately).
-
-```python
-from starlette.applications import Starlette
-
-from starception import exception_handler
-
-app = Starlette(
-    debug=True,
-    exception_handlers={Exception: exception_handler}
+    ]
 )
 ```
 
@@ -170,7 +152,7 @@ class WithHintError(Exception):
 Set your current editor to open paths in your editor/IDE.
 
 ```python
-from starception import set_editor
+from starlite_starception import set_editor
 
 set_editor('vscode')
 ```
@@ -185,7 +167,7 @@ set_editor('vscode')
 If your editor is not supported, you can add it by calling `add_link_template` and then selecting it with `set_editor`.
 
 ```python
-from starception import set_editor, add_link_template
+from starlite_starception import set_editor, add_link_template
 
 add_link_template('vscode', 'vscode://file/{path}:{lineno}')
 set_editor('vscode')
