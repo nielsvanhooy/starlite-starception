@@ -6,15 +6,16 @@ All rights to him and the contributors for that repo.
 
 This fork exists to implement starception for starlite: https://github.com/starlite-api/starlite.
 
-Starlite left starlette since version [1.39.0] for there own implementations.
-Therefor the orginal repo doens't work anymore
+Starlite left starlette since version [1.39.0] for there own implementations. 
+
+Therefore the orginal repo doens't work
 anymore
 
 Seeing starception was originally built for starlette backed frameworks.
 So a fork was needed to make this work with
 starlite
 
-Note2: i will keep the fork in sync with the main repo except for the starlette stuff.
+Note2 : I will keep the fork in sync with the main repo except for the starlette stuff.
 
 ##############
 
@@ -34,9 +35,9 @@ Beautiful exception page for Starlette and FastAPI apps.
 Install `starlite-starception` using PIP or poetry:
 
 ```bash
-pip install starlite-starlite_starception
+pip install starlite_starception
 # or
-poetry add starlite-starlite_starception
+poetry add starlite_starception
 ```
 
 ### With syntax highlight support
@@ -44,9 +45,9 @@ poetry add starlite-starlite_starception
 If you want to colorize code snippets, install `pygments` library.
 
 ```bash
-pip install starlite-starlite_starception[pygments]
+pip install starlite_starception[pygments]
 # or
-poetry add starlite-starlite_starception -E pygments
+poetry add starlite_starception -E pygments
 ```
 
 ## Screenshot
