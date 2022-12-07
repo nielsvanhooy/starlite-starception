@@ -5,9 +5,9 @@ version = "1.0.1"
 authors = ["Alex Oleshkevich <alex.oleshkevich@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/alex-oleshkevich/starception"
-repository = "https://github.com/alex-oleshkevich/starception"
-documentation = "https://github.com/alex-oleshkevich/starception"
+homepage = "https://github.com/nielsvanhooy/starlite-starception"
+repository = "https://github.com/nielsvanhooy/starlite-starception"
+documentation = "https://github.com/nielsvanhooy/starlite-starception"
 keywords = []
 classifiers = [
     "Development Status :: 5 - Production/Stable",
